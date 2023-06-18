@@ -7,17 +7,17 @@
 
 const express = require("express");
 const NodeHelper = require("node_helper");
-const request = require("request");
-const url = require("url");
 const path = require("path");
 const fs = require("fs");
 const mime = require("mime-types");
+const Log = require("logger");
+
+let directoryImages;
 
 module.exports = NodeHelper.create({
   // Override start method.
   start() {
-    const self = this;
-    console.log(`Starting node helper for: ${this.name}`);
+    Log.log(`Starting node helper for: ${this.name}`);
   },
 
   setConfig() {
@@ -25,7 +25,7 @@ module.exports = NodeHelper.create({
       `${global.root_path}/modules/MMM-ImagesPhotos/uploads${this.config.path}`
     );
     if (this.config.debug) {
-      console.log(`path for : ${this.name}= ${this.path_images}`);
+      Log.log(`path for : ${this.name}= ${this.path_images}`);
     }
   },
 
@@ -60,8 +60,9 @@ module.exports = NodeHelper.create({
     const imagesPhotos = this.getImages(this.getFiles(directoryImages)).map(
       function (img) {
         if (this.config.debug) {
-          console.log(`have image=${img}`);
+          Log.log(`have image=${img}`);
         }
+        Log.log(`/MMM-ImagesPhotos/photo/${img}`);
         return { url: `/MMM-ImagesPhotos/photo/${img}` };
       }
     );
@@ -72,8 +73,8 @@ module.exports = NodeHelper.create({
   getImages(files) {
     const images = [];
     const enabledTypes = ["image/jpeg", "image/png", "image/gif"];
-    for (idx in files) {
-      type = mime.lookup(files[idx]);
+    for (const idx in files) {
+      const type = mime.lookup(files[idx]);
       if (enabledTypes.indexOf(type) >= 0 && type !== false) {
         images.push(files[idx]);
       }
@@ -82,16 +83,16 @@ module.exports = NodeHelper.create({
     return images;
   },
 
-  getFiles(path) {
+  getFiles(imagePath) {
     let files = [];
     try {
-      files = fs.readdirSync(path).filter(function (file) {
-        if (!fs.statSync(`${path}/${file}`).isDirectory()) {
+      files = fs.readdirSync(imagePath).filter(function (file) {
+        if (!fs.statSync(`${imagePath}/${file}`).isDirectory()) {
           return file;
         }
       });
     } catch (exception) {
-      console.log("getfiles unable to access source folder, will retry");
+      Log.log("getfiles unable to access source folder, will retry");
     }
     return files;
   }

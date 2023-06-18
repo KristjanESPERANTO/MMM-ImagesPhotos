@@ -1,4 +1,4 @@
-/* global Module */
+/* global Log Module */
 
 /* Magic Mirror
  * Module: MMM-ImagesPhotos
@@ -28,7 +28,6 @@ Module.register("MMM-ImagesPhotos", {
   requiresVersion: "2.1.0", // Required version of MagicMirror
 
   start() {
-    const self = this;
     this.photos = [];
     this.loaded = false;
     this.lastPhotoIndex = -1;
@@ -69,26 +68,24 @@ Module.register("MMM-ImagesPhotos", {
     };
     photosRequest.send();
   },
-  notificationReceived(notification, payload, sender) {
-    // hook to turn off messages about notiofications, clock once a second
+  notificationReceived() {
+    // hook to turn off messages about notifications, clock once a second
   },
   startTimer() {
     const self = this;
     self.timer = setTimeout(() => {
       // clear timer value for resume
       self.timer = null;
-      if (self.suspended == false) {
+      if (self.suspended === false) {
         self.updateDom(self.config.animationSpeed);
       }
     }, this.config.updateInterval);
   },
 
-  socketNotificationReceived(notification, payload, source) {
-    if (notification == "READY") {
-      const self = this;
+  socketNotificationReceived(notification) {
+    if (notification === "READY") {
       // Schedule update timer.
       this.getPhotos();
-      // this.startTimer();
     }
   },
   /* scheduleUpdate()
@@ -102,7 +99,6 @@ Module.register("MMM-ImagesPhotos", {
     if (typeof delay !== "undefined" && delay >= 0) {
       nextLoad = delay;
     }
-    nextLoad = nextLoad;
     const self = this;
     setTimeout(function () {
       self.getPhotos();
@@ -208,7 +204,7 @@ Module.register("MMM-ImagesPhotos", {
       this.wrapper = document.createElement("div");
       this.bk = document.createElement("div");
       this.bk.className = "bgimage";
-      if (this.config.fill == true) {
+      if (this.config.fill === true) {
         this.bk.style.filter = `blur(${this.config.blur}px)`;
         this.bk.style["-webkit-filter"] = `blur(${this.config.blur}px)`;
       } else {
@@ -236,7 +232,7 @@ Module.register("MMM-ImagesPhotos", {
 
         // set default position, corrected in onload handler
         img.style.left = `${0}px`;
-        img.style.top = document.body.clientHeight + parseInt(m) * 2;
+        img.style.top = document.body.clientHeight + parseInt(m, 10) * 2;
         img.style.position = "relative";
 
         img.src = photoImage.url;
@@ -249,14 +245,14 @@ Module.register("MMM-ImagesPhotos", {
         // the loadurl request will happen when the html is returned to MM and inserted into the dom.
         img.onload = (evt) => {
           // get the image of the event
-          const img = evt.currentTarget;
+          img = evt.currentTarget;
           Log.log(`image loaded=${img.src} size=${img.width}:${img.height}`);
 
           // what's the size of this image and it's parent
           const w = img.width;
           const h = img.height;
-          const tw = document.body.clientWidth + parseInt(m) * 2;
-          const th = document.body.clientHeight + parseInt(m) * 2;
+          const tw = document.body.clientWidth + parseInt(m, 10) * 2;
+          const th = document.body.clientHeight + parseInt(m, 10) * 2;
 
           // compute the new size and offsets
           const result = self.ScaleImage(w, h, tw, th, true);
@@ -277,7 +273,7 @@ Module.register("MMM-ImagesPhotos", {
           // if another image was already displayed
           const c = self.fg.childElementCount;
           if (c > 1) {
-            for (let i = 0; i < c - 1; i++) {
+            for (let i = 0; i < c - 1; i += 1) {
               // hide it
               self.fg.firstChild.style.opacity = 0;
               self.fg.firstChild.style.backgroundColor = "rgba(0,0,0,0)";
@@ -288,7 +284,7 @@ Module.register("MMM-ImagesPhotos", {
           self.fg.firstChild.style.opacity = self.config.opacity;
 
           self.fg.firstChild.style.transition = "opacity 1.25s";
-          if (self.config.fill == true) {
+          if (self.config.fill === true) {
             self.bk.style.backgroundImage = `url(${self.fg.firstChild.src})`;
           }
           self.startTimer();
@@ -306,7 +302,7 @@ Module.register("MMM-ImagesPhotos", {
     const self = this;
     this.photos = data;
     if (this.loaded === false) {
-      if (this.suspended == false) {
+      if (this.suspended === false) {
         self.updateDom(self.config.animationSpeed);
       }
     }
