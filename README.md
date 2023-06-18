@@ -8,9 +8,11 @@ This module reads the images from the *uploads* directory inside the module.
 ## Installation
 1. Clone this repository inside your MagicMirror's `modules` folder
 
-   `cd ~/MagicMirror/modules`
-
-   `git clone https://github.com/roramirez/MMM-ImagesPhotos.git`.
+```bash
+cd ~/MagicMirror/modules
+git clone https://github.com/roramirez/MMM-ImagesPhotos
+npm install
+```
 
 ## How it looks
 ![Demo](.github/animate.gif)
