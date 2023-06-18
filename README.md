@@ -2,8 +2,8 @@
 
 This is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror). It will show photos from a directory.
 
-This module reads the images from the *uploads* directory inside the module.
-**Directory**: *MagicMirror/modules/MMM-ImagesPhotos/uploads*
+This module reads the images from the _uploads_ directory inside the module.
+**Directory**: _MagicMirror/modules/MMM-ImagesPhotos/uploads_
 
 ## Installation
 
@@ -23,6 +23,7 @@ npm install
 
 The entry in `config.js` can include the following options:
 
+<!-- prettier-ignore-start -->
 | Option             | Description
 |--------------------|-----------
 | `opacity`          | The opacity of the image.<br><br>**Type:** `double`<br>Default 0.9
@@ -34,6 +35,7 @@ The entry in `config.js` can include the following options:
 | `backgroundColor`  | Value for color used to fill around the image if not fullscreen, default 'black', can be #xxyyzz, like #808080 (grey),<br> if fill is true, the backgroundColor setting is ignored
 | `fill`             | true or false, default false. instead of color use a blurred copy of the image to fill around the image
 | `blur`             |  the size of the pixel blur of the background fill, default 8
+<!-- prettier-ignore-end -->
 
 Here is an example of an entry in `config.js`
 
