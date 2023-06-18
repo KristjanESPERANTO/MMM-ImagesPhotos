@@ -1,11 +1,12 @@
 # MMM-ImagesPhotos
+
 This is a module for the [MagicMirror](https://github.com/MichMich/MagicMirror). It will show photos from a directory.
 
 This module reads the images from the *uploads* directory inside the module.
 **Directory**: *MagicMirror/modules/MMM-ImagesPhotos/uploads*
 
-
 ## Installation
+
 1. Clone this repository inside your MagicMirror's `modules` folder
 
 ```bash
@@ -15,11 +16,12 @@ npm install
 ```
 
 ## How it looks
+
 ![Demo](.github/animate.gif)
 
 ## Config
-The entry in `config.js` can include the following options:
 
+The entry in `config.js` can include the following options:
 
 | Option             | Description
 |--------------------|-----------
@@ -34,17 +36,18 @@ The entry in `config.js` can include the following options:
 | `blur`             |  the size of the pixel blur of the background fill, default 8
 
 Here is an example of an entry in `config.js`
-```
+
+```js
 {
-	module: "MMM-ImagesPhotos",
-	position: "middle_center",
-	config: {
-		opacity: 0.9,
-		animationSpeed: 500,
-		updateInterval: 5000,
-		backgroundColor: 'grey',  // not used if fill is true
-		fill: false,   // fill around image with blurred copy of image
-		blur: 10,   // only used if fill is true
-	}
+ module: "MMM-ImagesPhotos",
+ position: "middle_center",
+ config: {
+  opacity: 0.9,
+  animationSpeed: 500,
+  updateInterval: 5000,
+  backgroundColor: 'grey',  // not used if fill is true
+  fill: false,   // fill around image with blurred copy of image
+  blur: 10,   // only used if fill is true
+ }
 },
 ```
