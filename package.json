@@ -27,5 +27,10 @@
     "path": "^0.12.7",
     "request": "^2.88.2",
     "url": "^0.11.1"
+  },
+  "scripts": {
+    "lint": "eslint . && stylelint **/*.css && prettier --check .",
+    "lint:fix": "eslint --fix . && stylelint --fix **/*.css && prettier --write .",
+    "test": "npm run lint"
   }
 }
