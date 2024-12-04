@@ -4,7 +4,7 @@
   "description": "Show photos and images from directory",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sdetweil/MMM-ImagesPhotos"
+    "url": "https://github.com/roramirez/MMM-ImagesPhotos"
   },
   "keywords": [
     "MagicMirror",
